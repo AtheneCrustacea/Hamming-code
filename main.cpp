@@ -7,19 +7,19 @@ using namespace std;
 int main()
 {
     try{
-        int polynomal1, polynomal2, counter = 0, input = 0, switcher = 0,output = 0, bit = 0, prep = 0;
-        string space;
-        cout << "Enter the polynomal: \n";
-        cin >> polynomal1;
-        cin >> polynomal2;
-        char res = 0;
-        coder worker(polynomal1, polynomal2);
-
+        int polynomal1, polynomal2, switcher, counter = 0, input = 0, output = 0, bit = 0, prep = 0;
+        char res = 0, buf;
+        string space, path;
         ifstream cfin;
         ofstream cfout;
-        cfin.open("D:\\binfiles\\oonumber1.bin", ios::binary);
-        cfout.open("D:\\binfiles\\oonumber2.bin", ios::binary);
-        char buf;
+        cin >> switcher;
+        cin >> polynomal1;
+        cin >> polynomal2;
+        coder worker(polynomal1, polynomal2);
+        getline(cin,path);
+        cfin.open(path, ios::binary);
+        getline(cin,path);
+        cfout.open(path, ios::binary);
         if(cfin.is_open() || cfout.is_open()) {//проверка файлов
         while(cfin.get(buf)) {
             space = space + buf;
