@@ -65,7 +65,7 @@ int coder::encrypt(int num_s)
 }
 int coder::decrypt(int num_s)
 {
-	if (num_s >= (1<<polynomal1))
+	if (num_s >= unsigned((1<<polynomal1)))
 		throw std::string ("insert correct number.");
     coded = num_s;
     decoded = 0;
