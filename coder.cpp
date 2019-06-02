@@ -65,6 +65,8 @@ int coder::encrypt(int num_s)
 }
 int coder::decrypt(int num_s)
 {
+	if (num_s > (1<<polynomal1))
+		throw string ("insert correct number.");
     coded = num_s;
     decoded = 0;
     int check_num[polynomal1 - polynomal2]; //Создание чисел для формирования контрольных битов (создание матрицы преобразования)
