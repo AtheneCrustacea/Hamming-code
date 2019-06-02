@@ -2,9 +2,9 @@
 #include <math.h>
 coder::coder(int input_polynomal1, int input_polynomal2)
 {
-    if (((input_polynomal1 != 7) && (input_polynomal2 != 4)) ||
-        ((input_polynomal1 != 15)&& (input_polynomal2 != 11))||
-        ((input_polynomal1 != 31)&& (input_polynomal2 != 26))){
+    if (((input_polynomal1 != 7) || (input_polynomal2 != 4)) &&
+        ((input_polynomal1 != 15)|| (input_polynomal2 != 11))&&
+        ((input_polynomal1 != 31)|| (input_polynomal2 != 26))){
         throw std::string ("wrong polynomal.");
     }
     polynomal1 = input_polynomal1;
@@ -14,6 +14,8 @@ coder::coder(int input_polynomal1, int input_polynomal2)
 }
 int coder::encrypt(int num_s)
 {
+	if (num_s > (1<<polynomal2))
+		throw string ("insert correct number.");
     decoded = num_s;
     coded = 0;
     int counter = polynomal2 - 1;
