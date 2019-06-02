@@ -14,7 +14,7 @@ coder::coder(int input_polynomal1, int input_polynomal2)
 }
 int coder::encrypt(int num_s)
 {
-	if (num_s > (1<<polynomal2))
+	if (num_s >= (1<<polynomal2))
 		throw std::string ("insert correct number.");
     decoded = num_s;
     coded = 0;
@@ -65,7 +65,7 @@ int coder::encrypt(int num_s)
 }
 int coder::decrypt(int num_s)
 {
-	if (num_s > (1<<polynomal1))
+	if (num_s >= (1<<polynomal1))
 		throw std::string ("insert correct number.");
     coded = num_s;
     decoded = 0;
