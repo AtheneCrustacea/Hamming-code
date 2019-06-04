@@ -4,7 +4,7 @@
 #include<coder.h>
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
     try{
         int polynomal1, polynomal2, switcher, counter = 0, input = 0, output = 0, bit = 0, prep = 0;
@@ -16,11 +16,9 @@ int main()
         cin >> polynomal1;
         cin >> polynomal2;
         coder worker(polynomal1, polynomal2);
-        getline(cin,path);
-        cfin.open(path, ios::binary);
-        getline(cin,path);
-        cfout.open(path, ios::binary);
-        if(cfin.is_open() || cfout.is_open()) {//проверка файлов
+        cin>>path;
+        cfin.open(path, ios::binary|ios::in);
+        if(cfin.is_open()) {//проверка файлов
         while(cfin.get(buf)) {
             space = space + buf;
         }
@@ -30,6 +28,8 @@ int main()
         if (space.length() == 0){//проверка: файл не пустой
             throw string("file is empty.\n");
         }
+        cin>>path;
+        cfout.open(path, ios::binary|ios::out);
         switch (switcher)
         {
             case(0):
@@ -40,7 +40,7 @@ int main()
                     counter++;
                     if(((counter % polynomal2) == 0) && (counter != 0))
                     {
-                        output = worker.encrypt(input);
+                        output = worker.encode(input);
                         for (int i = 0; i <= polynomal1/8; i++){
                             res = output>>8*(polynomal1/8-i);
                             cfout.write((char*)&res,sizeof (char));
@@ -52,7 +52,7 @@ int main()
                 if((counter % polynomal2) != 0)//дозапись последнего значения
             {
                 input = input<<(polynomal2 - (counter%polynomal2));
-                output = worker.encrypt(input);
+                output = worker.encode(input);
                 for (int i = 0; i <= polynomal1/8; i++){
                     res = output>>8*(polynomal1/8-i);
                     cfout.write((char*)&res,sizeof (char));
@@ -70,7 +70,7 @@ int main()
                     prep = 0;
                     counter += 8;
                     if ((counter/8%(polynomal1/8 + 1) == 0) && (counter != 0)){
-                        output = worker.decrypt(input);
+                        output = worker.decode(input);
                         input = 0;
                         for (int j = 0; j < polynomal2; ++j) {
                             res = (res << 1) + ((output >>( polynomal2 - j - 1)) & 1);
