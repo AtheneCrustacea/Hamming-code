@@ -1,5 +1,4 @@
 #include "coder.h"
-#include <math.h>
 coder::coder(int input_polynomal1, int input_polynomal2)
 {
     if (((input_polynomal1 != 7) || (input_polynomal2 != 4)) &&
@@ -9,15 +8,15 @@ coder::coder(int input_polynomal1, int input_polynomal2)
     }
     polynomal1 = input_polynomal1;
     polynomal2 = input_polynomal2;
-    coded = 0;
-    decoded = 0;
+//    coded = 0;
+//    decoded = 0;
 }
-int coder::encrypt(int num_s)
+int coder::encode(int num_s)
 {
-	if (num_s >= (1<<polynomal2))
-		throw std::string ("insert correct number.");
-    decoded = num_s;
-    coded = 0;
+    if ((num_s >= unsigned((1<<polynomal2))) || (num_s<0))
+        throw std::string ("insert correct number.");
+    int decoded = num_s;
+    int coded = 0;
     int counter = polynomal2 - 1;
     for(int i = 1; i <= polynomal1; i++) //создание шаблона
     {
@@ -30,7 +29,7 @@ int coder::encrypt(int num_s)
         }
     }
     int check_num[polynomal1 - polynomal2]; //Создание чисел для формирования контрольных битов (создание матрицы преобразования)
-    int sth; //Вспомогательное число для проставления 0 и 1 (поменять название)
+    int sth; //Вспомогательное число для проставления 0 и 1
     int o;
     for(int i = 0; i < polynomal1 - polynomal2; i++)
         check_num[i] = 0;
@@ -63,12 +62,12 @@ int coder::encrypt(int num_s)
     }
     return coded;
 }
-int coder::decrypt(int num_s)
+int coder::decode(int num_s)
 {
-	if (num_s >= unsigned((1<<polynomal1)))
+    if ((num_s >= unsigned((1<<polynomal1))) || (num_s<0))
 		throw std::string ("insert correct number.");
-    coded = num_s;
-    decoded = 0;
+    int coded = num_s;
+    int decoded = 0;
     int check_num[polynomal1 - polynomal2]; //Создание чисел для формирования контрольных битов (создание матрицы преобразования)
     int sth; //Вспоманательное число для проставления 0 и 1 (поменять название)
     int o;
